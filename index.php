@@ -9,6 +9,8 @@
 
 	<?php
 
+
+
 		/*
 			Une variable est auto-déclarante
 			elle est aussi auto-typée et elle est
@@ -65,7 +67,7 @@
 		
 		$age = "18";
 
-		if( $age > 18 ) echo "Majeur";
+		if( $age > 18 ) echo "Majeur";	
 		elseif( $age === 18 ) echo "Tout juste majeur";
 		elseif( $age < 18 ) echo "Mineur";
 		
@@ -85,9 +87,9 @@
 		}
 
 
-		/*
-			Condition ternaire
-		*/
+		
+		//Condition ternaire
+		
 		$age = 13;
 		if($age<18){
 			echo "mineur";
@@ -127,7 +129,6 @@
 
 		//Simplification des conditions
 
-
 		$adult = null;
 
 		if($adult){
@@ -135,6 +136,35 @@
 		}else{
 			echo "Mineur";
 		}
+
+		
+
+		echo "<br>";
+		echo "<h1>Les boucles</h1>";
+
+		for( $cpt=1 ; $cpt<10 ; $cpt++){
+			echo $cpt;
+		}
+
+		echo "<br>";
+
+		$dice = rand(1,100000);
+		$cpt = 1;
+
+		while($dice != 6){
+			$cpt++;
+			$dice = rand(1,100000);
+		}
+
+		echo "J'ai réalisé ".$cpt." tentative(s)";
+
+		$cpt = 0;
+		do{
+			$cpt++;
+			$dice = rand(1,100000);
+		}while($dice != 6);
+		
+		echo "J'ai réalisé ".$cpt." tentative(s)";
 
 	?>
 

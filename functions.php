@@ -43,16 +43,40 @@
 
 	$lastname = cleanLastname($lastname);
 
-	echo $lastname;
+	//echo $lastname;
 
 
 
-	function cleanFirstname($firstname){
+	//$firstname pointe sur une mémoire 046233543243
+	$firstname = "   Jean pierre   ";
 
-		//???
 
-		return $firstname;
+	//$firstnameToClean pointe sur une mémoire 046233543243
+	function cleanFirstname(&$firstnameToClean){
+
+		$firstnameToClean = trim($firstnameToClean);
+		$firstnameToClean = ucwords(strtolower($firstnameToClean));
+
 	}
+
+	cleanFirstname($firstname);
+
+	//echo $firstname;
+
+
+
+
+	function helloComplete($firstname,$lastname="Anonyme"){
+		echo "Bonjour ".$firstname." ".$lastname;
+	}
+
+
+	$firstname = "yves";
+	$lastname = "Skrzypczyk";
+
+	helloComplete($firstname, $lastname);
+
+	helloComplete($firstname);
 
 
 	?>

@@ -2,6 +2,8 @@
 
 session_start();
 
+require "functions.php";
+
 //Éviter la faille XSS
 //not empty pour les required
 //isset pour les non required
@@ -25,9 +27,9 @@ if(
 
 
 //nettoyage des champs
-$firstname = ucfirst(strtolower(trim($_POST["firstname"])));
+$firstname = ucwords(strtolower(trim($_POST["firstname"])));
 $email = strtolower(trim($_POST["email"]));
-$pseudo = ucfirst(strtolower(trim($_POST["pseudo"])));
+$pseudo = ucwords(strtolower(trim($_POST["pseudo"])));
 $lastname = strtoupper(trim($_POST["firstname"]));
 $pwd = $_POST["pwd"];
 $pwdConfirm = $_POST["pwdConfirm"];
@@ -97,7 +99,28 @@ if( count($birthdayExploded)!=3 || !checkdate($birthdayExploded[1], $birthdayExp
 
 
 if( count($errors) == 0){
-	echo "OK";
+	
+
+	$pdo = connectDB();
+
+	//PDO voit qu'il n'y a qu'une seule requête
+	$queryPrepared = $pdo->prepare("INSERT INTO iw_user (email, firstname, pwd,  lastname, pseudo, country, birthday) VALUES (:email, :firstname, :pwd,  :lastname, :pseudo, :country, :birthday)");
+
+
+
+	$queryPrepared->execute([
+								"email"=>$email,
+								"firstname"=>$firstname,
+								"pwd"=>$pwd,
+								"lastname"=>$lastname,
+								"pseudo"=>$pseudo,
+								"country"=>$country,
+								"birthday"=>$birthday
+							]);
+	
+
+	header("Location: index.php");
+
 }else{
 	$_SESSION['errors'] = $errors;
 	header("Location: register.php");

@@ -1,85 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title></title>
-</head>
-<body>
+<?php
 
-	<?php
+function connectDB(){
 
+	try{
+		$pdo = new PDO( "mysql:host=localhost;dbname=projetweb1A2;port=3306" , "root" , "root");
 
-	function helloWorld(){
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		echo "Bonjour";
-
-	}
-
-	//helloWorld();
-
-
-	$firstname = "yves";
-
-
-	function helloYou($firstname){
-		//va chercher la variable globale firstname
-		//global $firstname;
-		//echo "Bonjour " . $firstname;
+	}catch(Exception $e){
+		die("Erreur SQL ".$e->getMessage());
 	}
 
 
-	helloYou($firstname);
+	return $pdo;
 
-
-
-
-	$lastname = "  SKrzYPczYK   ";
-
-	function cleanLastname($lastname){
-		$lastname = trim($lastname);
-		$lastname = strtoupper($lastname);// String to Upper
-		return $lastname;
-	}
-
-	$lastname = cleanLastname($lastname);
-
-	//echo $lastname;
-
-
-
-	//$firstname pointe sur une mémoire 046233543243
-	$firstname = "   Jean pierre   ";
-
-
-	//$firstnameToClean pointe sur une mémoire 046233543243
-	function cleanFirstname(&$firstnameToClean){
-
-		$firstnameToClean = trim($firstnameToClean);
-		$firstnameToClean = ucwords(strtolower($firstnameToClean));
-
-	}
-
-	cleanFirstname($firstname);
-
-	//echo $firstname;
-
-
-
-
-	function helloComplete($firstname,$lastname="Anonyme"){
-		echo "Bonjour ".$firstname." ".$lastname;
-	}
-
-
-	$firstname = "yves";
-	$lastname = "Skrzypczyk";
-
-	helloComplete($firstname, $lastname);
-
-	helloComplete($firstname);
-
-
-	?>
-
-</body>
-</html>
+}

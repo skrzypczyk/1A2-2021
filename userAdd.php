@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 
 //Éviter la faille XSS
 //not empty pour les required
@@ -99,7 +99,8 @@ if( count($birthdayExploded)!=3 || !checkdate($birthdayExploded[1], $birthdayExp
 if( count($errors) == 0){
 	echo "OK";
 }else{
-	print_r($errors);
+	$_SESSION['errors'] = $errors;
+	header("Location: register.php");
 }
 
 

@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +10,18 @@
 	<title>S'inscrire</title>
 </head>
 <body>
+
+
+	<?php
+
+	if(!empty($_SESSION['errors'])){
+		print_r($_SESSION['errors']);
+		//session_destroy()
+		unset($_SESSION['errors']);
+
+	}
+
+	?>
 
 	<form method="POST" action="userAdd.php">
 		<input type="email" name="email" placeholder="Votre email" required="required"><br>

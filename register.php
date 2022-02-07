@@ -21,7 +21,7 @@
 		<input type="password" name="pwd" placeholder="Votre mot de passe" required="required"><br>
 		<input type="password" name="pwdConfirm" placeholder="Confirmation" required="required"><br>
 		<label>
-			CGU : <input type="checkbox" name="CGU" required="required"><br>
+			CGU : <input type="checkbox" name="cgu" required="required"><br>
 		</label>
 
 		<input type="submit" value="S'inscire">

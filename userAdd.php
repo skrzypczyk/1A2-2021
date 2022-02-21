@@ -4,6 +4,7 @@ session_start();
 
 require "functions.php";
 
+
 //Éviter la faille XSS
 //not empty pour les required
 //isset pour les non required
@@ -47,7 +48,25 @@ $errors = [];
 
 if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
 	$errors[] = "Votre email est incorrect";
+}else{
+
+	//Connexion en bdd
+	$pdo = connectDB();
+
+	//Donne l'utilisateur en bdd pour l'email en question
+	$queryPrepared = $pdo->prepare("SELECT id FROM ".DBPREFIXE."user WHERE email=:email LIMIT 1");
+
+	$queryPrepared->execute(["email"=>$email]);
+
+	$result = $queryPrepared->fetch();
+
+	//Si le résultat existe on alimente le tableau $error
+	if(!empty($result)){
+		$errors[] = "Votre email existe déjà en bdd";
+	}
+
 }
+
 
 //Prénom : Min 2 caractères Max 32
 if( strlen($firstname)==1 || strlen($firstname)>32){
@@ -100,11 +119,15 @@ if( count($birthdayExploded)!=3 || !checkdate($birthdayExploded[1], $birthdayExp
 
 if( count($errors) == 0){
 	
-	$pdo = connectDB();
+	
 
 	//PDO voit qu'il n'y a qu'une seule requête
-	$queryPrepared = $pdo->prepare("INSERT INTO iw_user (email, firstname, pwd,  lastname, pseudo, country, birthday) VALUES (:email, :firstname, :pwd,  :lastname, :pseudo, :country, :birthday)");
+	$queryPrepared = $pdo->prepare("INSERT INTO ".DBPREFIXE."user (email, firstname, pwd,  lastname, pseudo, country, birthday) VALUES (:email, :firstname, :pwd,  :lastname, :pseudo, :country, :birthday)");
 
+
+	//bcrypt, md5, SHA1, SHA256
+
+	$pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
 	$queryPrepared->execute([
 								"email"=>$email,

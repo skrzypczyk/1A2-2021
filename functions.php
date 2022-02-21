@@ -1,9 +1,11 @@
 <?php
 
+require "conf.inc.php";
+
 function connectDB(){
 
 	try{
-		$pdo = new PDO( "mysql:host=localhost;dbname=projetweb1A2;port=3306" , "root" , "root");
+		$pdo = new PDO( DBDRIVER.":host=".DBHOST.";dbname=".DBNAME.";port=".DBPORT , DBUSER , DBPWD);
 
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

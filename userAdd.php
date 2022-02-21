@@ -100,12 +100,10 @@ if( count($birthdayExploded)!=3 || !checkdate($birthdayExploded[1], $birthdayExp
 
 if( count($errors) == 0){
 	
-
 	$pdo = connectDB();
 
 	//PDO voit qu'il n'y a qu'une seule requête
 	$queryPrepared = $pdo->prepare("INSERT INTO iw_user (email, firstname, pwd,  lastname, pseudo, country, birthday) VALUES (:email, :firstname, :pwd,  :lastname, :pseudo, :country, :birthday)");
-
 
 
 	$queryPrepared->execute([

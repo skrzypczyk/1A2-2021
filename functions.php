@@ -61,6 +61,18 @@ function createToken($id = null){
 }
 
 
+function redirectIfNotConnected(){
+	if(!isConnected()){
+		header("Location: index.php");
+		die();
+	}
+}
+
+
+
+
+
+
 
 
 

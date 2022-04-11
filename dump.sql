@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le :  lun. 07 fév. 2022 à 17:12
+-- Généré le :  lun. 11 avr. 2022 à 10:41
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -31,8 +31,17 @@ CREATE TABLE `iw_user` (
   `birthday` date NOT NULL,
   `pseudo` varchar(32) NOT NULL,
   `date_inserted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `token` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `iw_user`
+--
+
+INSERT INTO `iw_user` (`id`, `email`, `firstname`, `lastname`, `pwd`, `country`, `status`, `birthday`, `pseudo`, `date_inserted`, `date_updated`, `token`) VALUES
+(6, 'y.skrzypczyk@gmail.com', 'Yves', 'YVES', '$2y$10$H8lj7exkWdfwtAgZtLHDae0gZSgje9KtXlQirS4StOXDIzTVpnhbS', 'fr', 0, '1986-11-29', 'Prof Php', '2022-02-21 17:26:11', '2022-04-11 08:40:04', '297d259dbbbda55ab0abb60249a04f03'),
+(7, 'y.skrfdfdzypczyk@gmail.com', 'Test', 'TEST', '$2y$10$JDdoNkbTGBP73DFySoJoLOGy5c7CD1ZCYO7lUD7NFL6Th6nZhdZmy', 'fr', 0, '2000-12-01', 'Test3232', '2022-04-11 08:25:49', NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -52,4 +61,4 @@ ALTER TABLE `iw_user`
 -- AUTO_INCREMENT pour la table `iw_user`
 --
 ALTER TABLE `iw_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;

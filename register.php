@@ -1,17 +1,32 @@
 <?php
-	session_start();
-?>
 
-<?php
-
-include "template/header.php";
+require "template/header.php";
 
 ?>
 
 	<?php
 
 	if(!empty($_SESSION['errors'])){
-		print_r($_SESSION['errors']);
+		
+		?>
+
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  
+			  <?php
+					foreach($_SESSION['errors'] as $error){
+
+						echo "<li>".$error;
+
+					}
+			  ?>
+
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+
+		<?php
+
+
+
 		//session_destroy()
 		unset($_SESSION['errors']);
 

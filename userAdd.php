@@ -140,7 +140,7 @@ if( count($errors) == 0){
 							]);
 	
 
-	header("Location: index.php");
+	header("Location: login.php");
 
 }else{
 	$_SESSION['errors'] = $errors;

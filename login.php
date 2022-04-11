@@ -1,11 +1,6 @@
 <?php
-	session_start();
-	require "functions.php";
-?>
 
-<?php
-
-	include "template/header.php";
+	require "template/header.php";
 
 	if(count($_POST) == 2 && !empty($_POST['email']) && !empty($_POST['pwd']) ){
 		
@@ -22,18 +17,33 @@
 		$queryPrepared->execute([
 									"email"=>$email
 								]);
-		$result = $queryPrepared->fetch();
+		$result = $queryPrepared->fetch(PDO::FETCH_ASSOC);
 
 		//Si aucun résultat = NOK
+		if(empty($result)){
+			$errors = "Identifiants incorrects";
+		}else{
+			//Si il y a un résultat récupère le mot de passe crypté
+			//  $pwd  =>  $result["pwd"];
 
-		//Si il y a un résultat récupère le mot de passe crypté
+			//Est-ce que le mot de passe crypté en bdd correspond au mot de passe que
+			// l'utilisateur vient de saisir
 
-		//Est-ce que le mot de passe crypté en bdd correspond au mot de passe que
-		// l'utilisateur vient de saisir
+			if(password_verify($pwd, $result["pwd"])){
+				
+				$_SESSION["token"] = createToken($result["id"]);
+				$_SESSION["id_user"]=$result["id"];
+				$_SESSION["email"]=$result["email"];
 
-		//Si oui -> Il est connecté
+				header("Location: index.php");
+			}else{
+				$errors = "Identifiants incorrects";
+			}
 
-		//Sinon  -> Nok
+
+		}
+
+		
 
 
 	}
@@ -44,6 +54,24 @@
 		<div class="col-4"></div>
 		<div class="col-4">
 			<h1>Se connecter</h1>
+
+
+			<?php
+
+				if(!empty($errors)) {
+					?>
+
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							  
+							  <?php echo $errors; ?>
+
+							  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+
+						<?php
+				}
+
+			?>
 
 
 			<form method="POST" action="">

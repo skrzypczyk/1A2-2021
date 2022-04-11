@@ -1,3 +1,8 @@
+<?php
+  session_start();
+  require "functions.php";
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -29,12 +34,26 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+        <?php if(isConnected()){ ?>
+
+        <li class="nav-item">
+          <a class="nav-link" href="logout.php">Se déconnecter</a>
+        </li>
+
+      <?php }else{ ?>
+
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="login.php">Se connecter</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="register.php">S'inscrire</a>
         </li>
+
+      <?php } ?>
+
+
       </ul>
      
     </div>
